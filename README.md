@@ -1,15 +1,21 @@
 # claude-manager-site
 
 Landing page do [Claude Manager](https://github.com/teixeiramatheus9/claude-manager) —
-o gerente flutuante das sessões do Claude Code.
+monitor de sessões do Claude Code nos seus terminais.
 
-Página estática (HTML/CSS/JS puro, sem build) servida pelo GitHub Pages.
+Página estática (HTML/CSS/JS puro, sem build), recriação pixel-perfect do
+design handoff "Landing Page — Claude Manager" (tema Monocromo: só cinzas
+sobre preto; o âmbar `#D29922` é a única cor e marca apenas "espera você").
 
-- Detecta o SO do visitante e destaca o download certo (AppImage no Linux, dmg no macOS).
-- Busca a versão mais recente via API de releases do GitHub em runtime; se a API
-  falhar (repo privado, rate limit, offline), os links caem no `/releases/latest`.
-- Usa a identidade visual do app: IBM Plex Mono, paleta e os 7 temas do renderer.
+- Versão e links de download vêm da API de releases do GitHub em runtime;
+  sem API, ficam os placeholders do design e o link `/releases/latest`.
+- Fontes: IBM Plex Mono e Jersey 25 (Google Fonts).
 
 ## Desenvolvimento
 
 Abre o `index.html` no navegador. É isso.
+
+## Deploy
+
+Hospedado na Vercel — importar o repositório como projeto estático
+(sem build command, output na raiz).
