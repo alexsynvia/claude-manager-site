@@ -401,25 +401,11 @@ section h2 .ver {
   background: #ffffff;
   text-decoration: none;
 }
-/* fora do fluxo, dentro do padding inferior do card, pra não desalinhar
-   os botões de download entre os três cards */
-.more-link {
-  position: absolute;
-  left: 26px;
-  right: 26px;
-  bottom: 6px;
-  background: none;
+button.btn-dl {
   border: 0;
-  padding: 0;
+  width: 100%;
   font-family: inherit;
-  font-size: 11px;
-  color: var(--faint);
   cursor: pointer;
-  text-align: center;
-}
-.more-link:hover {
-  color: var(--text-2);
-  text-decoration: underline;
 }
 
 /* --- modal (outros formatos linux) --- */
