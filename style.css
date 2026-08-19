@@ -365,6 +365,7 @@ section h2 .ver {
   gap: 16px;
 }
 .dl-card {
+  position: relative;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 10px;
@@ -400,8 +401,13 @@ section h2 .ver {
   background: #ffffff;
   text-decoration: none;
 }
+/* fora do fluxo, dentro do padding inferior do card, pra não desalinhar
+   os botões de download entre os três cards */
 .more-link {
-  margin-top: -4px;
+  position: absolute;
+  left: 26px;
+  right: 26px;
+  bottom: 6px;
   background: none;
   border: 0;
   padding: 0;
