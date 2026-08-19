@@ -400,29 +400,20 @@ section h2 .ver {
   background: #ffffff;
   text-decoration: none;
 }
-.dl-actions {
-  margin-top: auto;
-  display: flex;
-  gap: 8px;
-}
-.dl-actions .btn-dl {
-  flex: 1;
-  margin-top: 0;
-}
-.btn-plus {
-  width: 41px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
+.more-link {
+  margin-top: -4px;
   background: none;
-  color: var(--text-2);
+  border: 0;
+  padding: 0;
   font-family: inherit;
-  font-size: 15px;
-  font-weight: 600;
+  font-size: 11px;
+  color: var(--faint);
   cursor: pointer;
+  text-align: center;
 }
-.btn-plus:hover {
-  border-color: var(--muted);
-  color: var(--text);
+.more-link:hover {
+  color: var(--text-2);
+  text-decoration: underline;
 }
 
 /* --- modal (outros formatos linux) --- */
