@@ -212,12 +212,15 @@
               claude-manager-1.0.0.AppImage · x64 / arm64
             </div>
           </div>
-          <a
-            class="btn-dl"
-            id="dl-appimage"
-            href="https://github.com/teixeiramatheus9/claude-manager/releases/latest"
-            >baixar .AppImage</a
-          >
+          <div class="dl-actions">
+            <a
+              class="btn-dl"
+              id="dl-appimage"
+              href="https://github.com/teixeiramatheus9/claude-manager/releases/latest"
+              >baixar .AppImage</a
+            >
+            <button class="btn-plus" id="more-linux" title="Outros formatos (.deb, .rpm)">+</button>
+          </div>
         </div>
       </div>
 
@@ -248,6 +251,41 @@
         </div>
       </div>
     </footer>
+
+    <div class="modal hidden" id="modal-linux" role="dialog" aria-modal="true" aria-label="Outros formatos para Linux">
+      <div class="modal-box">
+        <div class="modal-head">
+          <span class="dollar">$</span>
+          <span>linux · outros formatos</span>
+          <span class="spacer"></span>
+          <button id="modal-close" title="Fechar">✕</button>
+        </div>
+        <div class="modal-row">
+          <div class="info">
+            <div class="fmt">.deb</div>
+            <div class="file" id="file-deb">claude-manager_1.0.0_amd64.deb · ubuntu / debian / mint</div>
+          </div>
+          <a
+            class="btn-dl"
+            id="dl-deb"
+            href="https://github.com/teixeiramatheus9/claude-manager/releases/latest"
+            >baixar .deb</a
+          >
+        </div>
+        <div class="modal-row">
+          <div class="info">
+            <div class="fmt">.rpm</div>
+            <div class="file" id="file-rpm">claude-manager-1.0.0.x86_64.rpm · fedora / opensuse</div>
+          </div>
+          <a
+            class="btn-dl"
+            id="dl-rpm"
+            href="https://github.com/teixeiramatheus9/claude-manager/releases/latest"
+            >baixar .rpm</a
+          >
+        </div>
+      </div>
+    </div>
 
     <script src="script.js"></script>
   </body>

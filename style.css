@@ -400,6 +400,123 @@ section h2 .ver {
   background: #ffffff;
   text-decoration: none;
 }
+.dl-actions {
+  margin-top: auto;
+  display: flex;
+  gap: 8px;
+}
+.dl-actions .btn-dl {
+  flex: 1;
+  margin-top: 0;
+}
+.btn-plus {
+  width: 41px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: none;
+  color: var(--text-2);
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-plus:hover {
+  border-color: var(--muted);
+  color: var(--text);
+}
+
+/* --- modal (outros formatos linux) --- */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal.hidden {
+  display: none;
+}
+.modal-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  width: 440px;
+  max-width: 100%;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+.modal-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 18px;
+  background: var(--surface-header);
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+}
+.modal-head .dollar {
+  color: var(--faint);
+}
+.modal-head .spacer {
+  flex: 1;
+}
+#modal-close {
+  background: none;
+  border: 0;
+  padding: 0;
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--muted);
+  cursor: pointer;
+}
+#modal-close:hover {
+  color: var(--text);
+}
+.modal-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--border-inner);
+}
+.modal-row:last-child {
+  border-bottom: 0;
+}
+.modal-row .info {
+  flex: 1;
+  min-width: 0;
+}
+.modal-row .fmt {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+}
+.modal-row .file {
+  margin-top: 4px;
+  font-size: 11.5px;
+  color: var(--faint);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.modal-row .btn-dl {
+  flex-shrink: 0;
+  background: var(--text);
+  color: var(--bg);
+  font-weight: 600;
+  font-size: 12.5px;
+  padding: 9px 16px;
+  border-radius: 6px;
+}
+.modal-row .btn-dl:hover {
+  background: #ffffff;
+  text-decoration: none;
+}
 .curl-box {
   margin-top: 20px;
   background: var(--surface-dark);

@@ -18,6 +18,8 @@ async function loadRelease() {
       exe: { name: `claude-manager-setup-${version}-x64.exe` },
       dmg: { name: `claude-manager-${version}.dmg`, suffix: ' · universal (intel + apple silicon)' },
       appimage: { name: `claude-manager-${version}.AppImage`, suffix: ' · x64 / arm64' },
+      deb: { name: `claude-manager_${version}_amd64.deb`, suffix: ' · ubuntu / debian / mint' },
+      rpm: { name: `claude-manager-${version}.x86_64.rpm`, suffix: ' · fedora / opensuse' },
     };
     for (const asset of rel.assets || []) {
       const n = asset.name;
@@ -27,7 +29,11 @@ async function loadRelease() {
           ? 'dmg'
           : n.endsWith('.AppImage')
             ? 'appimage'
-            : null;
+            : n.endsWith('.deb')
+              ? 'deb'
+              : n.endsWith('.rpm')
+                ? 'rpm'
+                : null;
       if (key && !files[key].url) {
         files[key].url = asset.browser_download_url;
         files[key].name = n;
@@ -55,5 +61,21 @@ function initCopy() {
   });
 }
 
+function initLinuxModal() {
+  const modal = document.getElementById('modal-linux');
+  document.getElementById('more-linux').addEventListener('click', () => {
+    modal.classList.remove('hidden');
+  });
+  const close = () => modal.classList.add('hidden');
+  document.getElementById('modal-close').addEventListener('click', close);
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) close();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') close();
+  });
+}
+
 loadRelease();
 initCopy();
+initLinuxModal();
