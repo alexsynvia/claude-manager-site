@@ -1,6 +1,6 @@
 const OWNER = 'teixeiramatheus9';
-const REPO = 'claude-manager';
-const CURL_CMD = 'curl -fsSL https://get.claude-manager.dev | sh';
+const REPO = 'vizor';
+const CURL_CMD = 'curl -fsSL https://get.vizor.dev | sh';
 
 // Versão e links reais vêm da release mais recente; sem API, ficam os
 // placeholders do design e o link /releases/latest.
@@ -15,11 +15,11 @@ async function loadRelease() {
     for (const el of document.querySelectorAll('.js-version')) el.textContent = version;
 
     const files = {
-      exe: { name: `claude-manager-setup-${version}-x64.exe` },
-      dmg: { name: `claude-manager-${version}.dmg`, suffix: ' · universal (intel + apple silicon)' },
-      appimage: { name: `claude-manager-${version}.AppImage`, suffix: ' · x64 / arm64' },
-      deb: { name: `claude-manager_${version}_amd64.deb`, suffix: ' · ubuntu / debian / mint' },
-      rpm: { name: `claude-manager-${version}.x86_64.rpm`, suffix: ' · fedora / opensuse' },
+      exe: { name: `Vizor-Setup-${version}.exe` },
+      dmg: { name: `Vizor-${version}-arm64.dmg`, suffix: ' · apple silicon' },
+      appimage: { name: `Vizor-${version}.AppImage`, suffix: ' · x64 / arm64' },
+      deb: { name: `vizor_${version}_amd64.deb`, suffix: ' · ubuntu / debian / mint' },
+      rpm: { name: `vizor-${version}.x86_64.rpm`, suffix: ' · fedora / opensuse' },
     };
     for (const asset of rel.assets || []) {
       const n = asset.name;
