@@ -1,10 +1,10 @@
-# claude-manager-site
+# vizor-site
 
-Landing page do [Claude Manager](https://github.com/teixeiramatheus9/claude-manager) —
+Landing page do [Vizor](https://github.com/teixeiramatheus9/vizor) —
 monitor de sessões do Claude Code nos seus terminais.
 
 Página estática (HTML/CSS/JS puro, sem build), recriação pixel-perfect do
-design handoff "Landing Page — Claude Manager" (tema Monocromo: só cinzas
+design handoff "Landing Page — Vizor" (tema Monocromo: só cinzas
 sobre preto; o âmbar `#D29922` é a única cor e marca apenas "espera você").
 
 - Versão e links de download vêm da API de releases do GitHub em runtime;
