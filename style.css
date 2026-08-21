@@ -63,7 +63,7 @@ a:hover {
 }
 
 .wrap {
-  max-width: 1060px;
+  max-width: 1140px;
   margin: 0 auto;
   padding-left: 28px;
   padding-right: 28px;
@@ -88,7 +88,7 @@ nav .spacer {
 nav .links {
   display: flex;
   gap: 26px;
-  font-size: 12.5px;
+  font-size: 13px;
 }
 nav .links a {
   color: var(--muted);
@@ -98,9 +98,14 @@ nav .links a:hover {
 }
 
 /* --- hero --- */
+/* Hero ocupa a primeira tela inteira; recursos só aparece com scroll. */
 header.wrap {
-  padding-top: 72px;
-  padding-bottom: 84px;
+  padding-top: 40px;
+  padding-bottom: 64px;
+  min-height: calc(100vh - 62px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   text-align: center;
   background-image: radial-gradient(circle, var(--surface-header) 1px, transparent 1px);
   background-size: 28px 28px;
@@ -119,26 +124,36 @@ header.wrap {
 .hero-badge .sep {
   color: var(--faint);
 }
-h1 {
-  margin: 26px auto 0;
+h1.hero-brand {
+  margin: 20px auto 0;
+  font-family: 'Jersey 25', monospace;
+  font-size: clamp(72px, 12vw, 130px);
+  line-height: 1;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+}
+/* Marca + tagline formam um grupo (proximidade); o parágrafo e os CTAs
+   ficam com mais ar entre si. */
+.hero-tagline {
+  margin: 6px auto 0;
   max-width: 780px;
   font-family: 'Jersey 25', monospace;
-  font-size: 60px;
-  line-height: 1.1;
-  font-weight: 400;
+  font-size: 32px;
+  line-height: 1.2;
+  color: var(--text-2);
   letter-spacing: 0.02em;
   text-wrap: balance;
 }
 .hero-sub {
-  margin: 20px auto 0;
+  margin: 34px auto 0;
   max-width: 560px;
-  font-size: 14.5px;
+  font-size: 15px;
   line-height: 1.7;
   color: var(--muted);
   text-wrap: pretty;
 }
 .hero-ctas {
-  margin-top: 32px;
+  margin-top: 36px;
   display: flex;
   gap: 14px;
   justify-content: center;
@@ -149,44 +164,267 @@ h1 {
   color: var(--bg);
   font-weight: 600;
   font-size: 13.5px;
-  padding: 13px 26px;
+  padding: 14px 30px;
   border-radius: 6px;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 .btn-primary:hover {
   background: #ffffff;
   color: var(--bg);
   text-decoration: none;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
 }
 .btn-secondary {
   border: 1px solid var(--border);
   color: var(--text-2);
   font-size: 13.5px;
-  padding: 12px 24px;
+  padding: 13px 28px;
   border-radius: 6px;
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
 }
 .btn-secondary:hover {
   border-color: var(--muted);
   color: var(--text);
   text-decoration: none;
+  transform: translateY(-2px);
+}
+
+/* --- hero em duas colunas (desktop) --- */
+.hero-visual {
+  margin: 48px auto 0;
+  max-width: 560px;
+}
+@media (min-width: 960px) {
+  header.wrap {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: 72px;
+    align-items: center;
+    align-content: center;
+    text-align: left;
+  }
+  h1.hero-brand {
+    font-size: clamp(72px, 8.5vw, 118px);
+    margin: 24px 0 0;
+  }
+  .hero-tagline {
+    margin: 8px 0 0;
+    font-size: 28px;
+    color: var(--text-2);
+  }
+  .hero-sub {
+    margin: 32px 0 0;
+    max-width: 520px;
+    font-size: 15.5px;
+    line-height: 1.8;
+  }
+  .hero-ctas {
+    margin-top: 40px;
+    justify-content: flex-start;
+  }
+  .hero-curl {
+    margin-top: 16px;
+  }
+  .hero-visual {
+    margin: 0;
+    max-width: none;
+  }
+}
+
+/* --- curl no hero (atalho pra quem já veio decidido) --- */
+.hero-curl {
+  margin-top: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface-dark);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 9px 14px;
+  font-size: 13px;
+}
+.hero-curl .dollar {
+  color: var(--faint);
+}
+.hero-curl .cmd {
+  color: var(--text-2);
+  font-family: inherit;
 }
 
 /* --- widget mockup --- */
+/* Tokens com escopo do widget: os 9 temas do app trocam só este conjunto,
+   o resto do site permanece monocromático. Valores portados de
+   vizor/src/renderer/app.html. */
 .widget {
-  margin: 56px auto 0;
-  width: 560px;
-  max-width: calc(100% - 148px);
-  position: relative;
+  --w-surface: #111213;
+  --w-surface-header: #151617;
+  --w-surface-dark: #0e0f10;
+  --w-border: #27292b;
+  --w-border-inner: #1b1c1d;
+  --w-track: #2b2e30;
+  --w-text: #ebecee;
+  --w-text-2: #c0c4c8;
+  --w-muted: #93999f;
+  --w-dim: #70787f;
+  --w-faint: #484d51;
+  --w-accent: #e7edf3;
+  --w-warn: #ca9c3e;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
   text-align: left;
 }
+.widget[data-theme='aco'] {
+  --w-surface: #0d1117;
+  --w-surface-header: #10151d;
+  --w-surface-dark: #0a0e14;
+  --w-border: #1f2733;
+  --w-border-inner: #161b22;
+  --w-track: #232b38;
+  --w-text: #e6edf3;
+  --w-text-2: #b9c2cf;
+  --w-muted: #8b95a7;
+  --w-dim: #6e7681;
+  --w-faint: #3d4a5c;
+  --w-accent: #7aa2f7;
+  --w-warn: #d29922;
+}
+.widget[data-theme='ambar'] {
+  --w-surface: #13100b;
+  --w-surface-header: #18140e;
+  --w-surface-dark: #100d09;
+  --w-border: #2b2419;
+  --w-border-inner: #1e1911;
+  --w-track: #30281c;
+  --w-text: #f3eee6;
+  --w-text-2: #d9c7af;
+  --w-muted: #be9f74;
+  --w-dim: #a37e4c;
+  --w-faint: #685131;
+  --w-accent: #f4b765;
+  --w-warn: #d45d52;
+}
+.widget[data-theme='magenta'] {
+  --w-surface: #140f17;
+  --w-surface-header: #19131d;
+  --w-surface-dark: #110d13;
+  --w-border: #2e2234;
+  --w-border-inner: #1f1724;
+  --w-track: #33263a;
+  --w-text: #eee8f1;
+  --w-text-2: #c9b6d2;
+  --w-muted: #a181b1;
+  --w-dim: #815c93;
+  --w-faint: #523b5e;
+  --w-accent: #e279c4;
+  --w-warn: #ca9c3e;
+}
+.widget[data-theme='ciano'] {
+  --w-surface: #0d1416;
+  --w-surface-header: #10191c;
+  --w-surface-dark: #0b1112;
+  --w-border: #1e2e32;
+  --w-border-inner: #141f22;
+  --w-track: #213338;
+  --w-text: #e8f0f1;
+  --w-text-2: #b5d0d3;
+  --w-muted: #7faeb3;
+  --w-dim: #599096;
+  --w-faint: #395c60;
+  --w-accent: #7fd2db;
+  --w-warn: #ca9c3e;
+}
+.widget[data-theme='giz'] {
+  --w-surface: #f7f5f1;
+  --w-surface-header: #efede8;
+  --w-surface-dark: #f1efea;
+  --w-border: #d8d5cf;
+  --w-border-inner: #e6e3dd;
+  --w-track: #e2dfd9;
+  --w-text: #2b2e33;
+  --w-text-2: #565a61;
+  --w-muted: #7d8289;
+  --w-dim: #989ca3;
+  --w-faint: #989ca3;
+  --w-accent: #3c4046;
+  --w-warn: #b8860b;
+}
+.widget[data-theme='magma'] {
+  --w-surface: #110b0b;
+  --w-surface-header: #150e0e;
+  --w-surface-dark: #0e0909;
+  --w-border: #271919;
+  --w-border-inner: #1a1111;
+  --w-track: #2b1c1c;
+  --w-text: #f2e8e7;
+  --w-text-2: #d5b6b3;
+  --w-muted: #b6817c;
+  --w-dim: #995c56;
+  --w-faint: #623b37;
+  --w-accent: #ed726e;
+  --w-warn: #ca9c3e;
+}
+.widget[data-theme='matrix'] {
+  --w-surface: #0b110d;
+  --w-surface-header: #0e1510;
+  --w-surface-dark: #090e0b;
+  --w-border: #19271e;
+  --w-border-inner: #111a14;
+  --w-track: #1c2b21;
+  --w-text: #e8f1eb;
+  --w-text-2: #b5d3be;
+  --w-muted: #80b28f;
+  --w-dim: #5a956c;
+  --w-faint: #396045;
+  --w-accent: #7bd599;
+  --w-warn: #ca9c3e;
+}
+.widget[data-theme='pipboy'] {
+  --w-surface: #071008;
+  --w-surface-header: #0a1710;
+  --w-surface-dark: #050d07;
+  --w-border: #1c3a24;
+  --w-border-inner: #102616;
+  --w-track: #1b3d26;
+  --w-text: #b6ffc9;
+  --w-text-2: #6fe093;
+  --w-muted: #48b06a;
+  --w-dim: #2f8a4d;
+  --w-faint: #1e5c34;
+  --w-accent: #3fff6a;
+  --w-warn: #ffb642;
+}
+.widget-bubble,
+.widget-panel,
+.widget-panel .head,
+.widget-panel .row,
+.widget-panel .foot,
+.widget span,
+.widget svg,
+.progress,
+.progress > span {
+  transition:
+    background-color 0.45s ease,
+    border-color 0.45s ease,
+    color 0.45s ease;
+}
+/* A bolinha fica ao lado do painel, como no app de verdade. */
 .widget-bubble {
-  position: absolute;
-  left: -74px;
-  top: 0;
-  width: 56px;
-  height: 56px;
+  position: relative;
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
   border-radius: 999px;
-  background: var(--surface);
-  border: 1px solid var(--border);
+  background: var(--w-surface);
+  border: 1px solid var(--w-border);
+  color: var(--w-text-2);
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55);
   display: flex;
   align-items: center;
@@ -199,87 +437,91 @@ h1 {
   width: 13px;
   height: 13px;
   border-radius: 999px;
-  background: var(--amber);
+  background: var(--w-warn);
   border: 2px solid var(--bg);
+  animation: ds-pulse 1.6s ease-in-out infinite;
 }
 .blink {
   animation: ds-blink 1.1s steps(1, end) infinite;
 }
 .widget-panel {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  flex: 1;
+  min-width: 0;
+  background: var(--w-surface);
+  border: 1px solid var(--w-border);
+  border-radius: 10px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
   overflow: hidden;
-  font-size: 13px;
+  font-size: 14px;
 }
 .widget-panel .head {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--border);
-  background: var(--surface-header);
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--w-border);
+  background: var(--w-surface-header);
+  color: var(--w-text-2);
 }
 .widget-panel .head .name {
-  color: var(--text);
+  color: var(--w-text);
   font-weight: 600;
 }
 .widget-panel .head .path {
-  color: var(--faint);
+  color: var(--w-faint);
   font-size: 12px;
 }
 .widget-panel .row {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 11px 16px;
-  border-bottom: 1px solid var(--border-inner);
+  padding: 13px 18px;
+  border-bottom: 1px solid var(--w-border-inner);
 }
 .widget-panel .row .proj {
   flex: 1;
-  color: var(--text);
+  color: var(--w-text);
 }
 .widget-panel .row .task {
-  color: var(--muted);
+  color: var(--w-muted);
   font-size: 12px;
 }
 .widget-panel .row .time {
-  color: var(--text);
+  color: var(--w-text);
   font-size: 12px;
 }
 .dot-run {
-  color: var(--text);
+  color: var(--w-accent);
   animation: ds-pulse 1.6s ease-in-out infinite;
 }
 .dot-wait {
-  color: var(--amber);
+  color: var(--w-warn);
 }
 .dot-done {
-  color: var(--dim);
+  color: var(--w-dim);
 }
 .row.waiting .time {
-  color: var(--amber);
+  color: var(--w-warn);
 }
 .row.done .proj {
-  color: var(--muted);
+  color: var(--w-muted);
 }
 .row.done .time {
-  color: var(--dim);
+  color: var(--w-dim);
 }
 .widget-panel .foot {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px 16px;
-  background: var(--surface-dark);
+  padding: 14px 18px;
+  background: var(--w-surface-dark);
 }
 .widget-panel .foot .prompt {
-  color: var(--text-2);
+  color: var(--w-text-2);
   font-weight: 600;
 }
 .widget-panel .foot .cfg {
-  color: var(--text-2);
+  color: var(--w-text-2);
 }
 .widget-panel .foot .spacer {
   flex: 1;
@@ -288,7 +530,7 @@ h1 {
   position: relative;
   width: 40px;
   height: 4px;
-  background: var(--track);
+  background: var(--w-track);
   overflow: hidden;
 }
 .progress > span {
@@ -297,11 +539,62 @@ h1 {
   top: 0;
   bottom: 0;
   width: 25%;
-  background: var(--text-2);
+  background: var(--w-accent);
+  transition:
+    width 0.9s ease,
+    background-color 0.45s ease;
 }
 .widget-panel .foot .usage {
-  color: var(--faint);
+  color: var(--w-faint);
   font-size: 12px;
+}
+.task.typing::after {
+  content: '▌';
+  color: var(--w-accent);
+  animation: ds-blink 0.9s steps(1, end) infinite;
+}
+
+/* --- seletor de tema do widget --- */
+.theme-picker {
+  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.picker-label {
+  font-size: 11.5px;
+  color: var(--faint);
+  margin-right: 4px;
+}
+/* Pontos monocromáticos; a cor fica por conta do widget e do nome ao lado. */
+.swatch {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border-radius: 999px;
+  border: 0;
+  background: var(--dim);
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    transform 0.15s ease;
+}
+.swatch:hover {
+  background: var(--text-2);
+  transform: scale(1.35);
+}
+.swatch.active {
+  background: var(--text);
+  transform: scale(1.2);
+}
+.picker-name {
+  font-size: 11.5px;
+  color: var(--muted);
+  margin-left: 6px;
+  min-width: 120px;
+  text-align: left;
 }
 
 /* --- sections --- */
@@ -311,32 +604,99 @@ section.wrap {
   border-top: 1px solid var(--surface-header);
   scroll-margin-top: 20px;
 }
+/* Nível de seção acima do nível de card: hero (clamp) → seção (32) →
+   card (15) → corpo (13). */
 section h2 {
   margin: 0;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--muted);
+  font-family: 'Jersey 25', monospace;
+  font-size: 32px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--text);
 }
-section h2 .dollar,
-section h2 .ver {
+section h2 .dollar {
+  font-size: 0.65em;
   color: var(--faint);
+}
+section h2 .ver {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--faint);
+  vertical-align: middle;
+  margin-left: 6px;
 }
 
 /* --- recursos --- */
+/* Bento: o widget vivo à esquerda demonstra; o card âmbar destaca; os
+   demais orbitam embaixo. */
 .feat-grid {
   margin-top: 28px;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 14px;
+}
+.feat-hero {
+  grid-column: span 4;
+  border-color: rgba(210, 153, 34, 0.35);
+  padding: 26px;
+}
+.feat-hero:hover {
+  border-color: rgba(210, 153, 34, 0.6);
+}
+.feat-hero .title {
+  font-size: 18px;
+}
+.feat-hero p {
+  max-width: 480px;
+}
+.feat-side {
+  grid-column: span 2;
+}
+.feat-half {
+  grid-column: span 3;
+}
+.demo-row {
+  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface-dark);
+  border: 1px solid var(--border-inner);
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 12px;
+}
+.demo-dot {
+  color: var(--amber);
+  animation: ds-pulse 1.6s ease-in-out infinite;
+}
+.demo-proj {
+  flex: 1;
+  color: var(--text);
+}
+.demo-task {
+  color: var(--muted);
+  font-size: 11.5px;
+}
+.demo-time {
+  color: var(--amber);
+  font-size: 11.5px;
 }
 .feat-card {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 20px;
+  transition:
+    border-color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 .feat-card:hover {
   border-color: var(--border-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
 }
 .feat-card .title {
   font-size: 15px;
@@ -348,9 +708,9 @@ section h2 .ver {
 }
 .feat-card p {
   margin: 10px 0 0;
-  font-size: 12.5px;
+  font-size: 13px;
   line-height: 1.7;
-  color: var(--muted);
+  color: var(--text-2);
   text-wrap: pretty;
 }
 
@@ -373,9 +733,15 @@ section h2 .ver {
   display: flex;
   flex-direction: column;
   gap: 14px;
+  transition:
+    border-color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 .dl-card:hover {
   border-color: var(--muted);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
 }
 .dl-card .os {
   font-size: 15px;
@@ -393,7 +759,7 @@ section h2 .ver {
   background: var(--text);
   color: var(--bg);
   font-weight: 600;
-  font-size: 12.5px;
+  font-size: 13px;
   padding: 11px;
   border-radius: 6px;
 }
@@ -492,7 +858,7 @@ button.btn-dl {
   background: var(--text);
   color: var(--bg);
   font-weight: 600;
-  font-size: 12.5px;
+  font-size: 13px;
   padding: 9px 16px;
   border-radius: 6px;
 }
@@ -509,7 +875,7 @@ button.btn-dl {
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 12.5px;
+  font-size: 13px;
 }
 .curl-box .dollar {
   color: var(--faint);
@@ -521,7 +887,7 @@ button.btn-dl {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-#copy-btn {
+.copy-cmd {
   cursor: pointer;
   color: var(--muted);
   border: 1px solid var(--border);
@@ -530,8 +896,11 @@ button.btn-dl {
   font-size: 11.5px;
   background: none;
   font-family: inherit;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
 }
-#copy-btn:hover {
+.copy-cmd:hover {
   color: var(--text);
   border-color: var(--muted);
 }
@@ -568,25 +937,113 @@ footer .links a:hover {
   color: var(--text-2);
 }
 
+/* --- intro --- */
+/* Sem JS a intro nem aparece; com JS ela cobre a tela até a animação acabar. */
+.intro {
+  display: none;
+}
+.js .intro {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity 0.6s ease;
+}
+.intro.out {
+  opacity: 0;
+  pointer-events: none;
+}
+body.intro-lock {
+  overflow: hidden;
+}
+.intro-line {
+  font-family: 'Jersey 25', monospace;
+  font-size: clamp(64px, 12vw, 120px);
+  letter-spacing: 0.06em;
+  line-height: 1;
+}
+/* O ">" do Jersey 25 é menor que as maiúsculas: 1.5x iguala a altura do
+   IZOR e o translateY desce o glifo pro centro óptico da linha. */
+.intro-v {
+  display: inline-block;
+  margin-right: 0.1em;
+  transform: translateY(0.04em) scale(1.5);
+  transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.intro-v.flip {
+  transform: translateY(0.04em) scale(1.5) rotate(90deg);
+}
+.intro-cursor {
+  animation: ds-blink 1s steps(1, end) infinite;
+}
+
+/* --- animações de entrada --- */
+/* Só escondem conteúdo quando o JS marcou <html class="js">; sem JS a página
+   fica visível normalmente. */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+  transition-delay: calc(var(--d, 0) * 90ms);
+}
+.js .reveal.in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .js .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* mobile (handoff não especifica; colapso mínimo sem alterar o desktop) */
 @media (max-width: 900px) {
   .feat-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+  .feat-hero {
+    grid-column: span 2;
+  }
+  .feat-side,
+  .feat-half {
+    grid-column: span 1;
+  }
 }
 @media (max-width: 640px) {
-  h1 {
-    font-size: 42px;
+  .hero-tagline {
+    font-size: 24px;
+  }
+  section h2 {
+    font-size: 26px;
   }
   .feat-grid {
     grid-template-columns: 1fr;
   }
-  .widget {
-    max-width: calc(100% - 20px);
-    margin-top: 88px;
+  .feat-hero,
+  .feat-side,
+  .feat-half {
+    grid-column: auto;
   }
-  .widget-bubble {
-    left: 0;
-    top: -72px;
+  .hero-curl {
+    max-width: 100%;
+  }
+  .hero-curl .cmd {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
